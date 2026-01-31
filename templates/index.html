@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Хайч · Чулуу · Даавуу</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; }
+    .card { border: 1px solid #e6e6e6; border-radius: 14px; padding: 18px; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #d0d0d0; background: white; cursor: pointer; }
+    button:hover { background: #f6f6f6; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; border: 1px solid #ddd; font-size: 12px; }
+    .win { border-color: #b7e4c7; background: #eafaf0; }
+    .lose { border-color: #fbc4c4; background: #fff0f0; }
+    .draw { border-color: #cfe0ff; background: #eef4ff; }
+    .err { border-color: #ffd6a5; background: #fff6e9; }
+    .small { color: #666; font-size: 13px; margin-top: 8px; }
+    .choices { margin-top: 10px; }
+    .k { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Хайч · Чулуу · Даавуу</h1>
+
+  <div class="card">
+    <form method="post" action="/play">
+      <div class="row choices">
+        <button type="submit" name="choice" value="rock">🪨 Чулуу</button>
+        <button type="submit" name="choice" value="paper">📄 Даавуу</button>
+        <button type="submit" name="choice" value="scissors">✂️ Хайч</button>
+      </div>
+    </form>
+
+    {% if result %}
+      {% if result.error %}
+        <div class="card err" style="margin-top:14px;">
+          <div class="k">Алдаа</div>
+          <div>{{ result.error }}</div>
+        </div>
+      {% else %}
+        <div class="card {{ result.outcome }}" style="margin-top:14px;">
+          <div class="badge">{{ result.message }}</div>
+          <div style="margin-top:10px;">
+            <div><span class="k">Таны сонголт:</span> {{ result.player }}</div>
+            <div><span class="k">Компьютер:</span> {{ result.computer }}</div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="small">
+      Дахин тоглохын тулд дээрээс дахин сонголтоо дарна уу.
+    </div>
+  </div>
+</body>
+</html>
